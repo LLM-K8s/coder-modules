@@ -19,7 +19,7 @@ ROOT_DIR=$${ROOT_DIR/\~/$HOME}
 DB_FLAG=" -d ${DB_PATH}"
 if [ ! -f "${DB_PATH}" ]; then
   echo "📦 DB 不存在，先初始化"
-  filebrowser --noauth --root "${ROOT_DIR}" --port "${PORT}" ${DB_FLAG} > /dev/null 2>&1 &
+  filebrowser --noauth --root $ROOT_DIR --port ${PORT}$${DB_FLAG} > /dev/null 2>&1 &
   PID=$!
   sleep 2
   kill $PID
