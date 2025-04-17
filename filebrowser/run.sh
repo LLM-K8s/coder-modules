@@ -16,9 +16,13 @@ printf "👷 Starting filebrowser in background... \n\n"
 ROOT_DIR=${FOLDER}
 ROOT_DIR=$${ROOT_DIR/\~/$HOME}
 
-DB_FLAG=""
-if [ "${DB_PATH}" != "filebrowser.db" ]; then
-  DB_FLAG=" -d ${DB_PATH}"
+DB_FLAG=" -d ${DB_PATH}"
+if [ ! -f "${DB_PATH}" ]; then
+  echo "📦 DB 不存在，先初始化"
+  filebrowser --noauth --root "${ROOT_DIR}" --port "${PORT}" ${DB_FLAG} > /dev/null 2>&1 &
+  PID=$!
+  sleep 2
+  kill $PID
 fi
 
 # set baseurl to be able to run if sudomain=false; if subdomain=true the SERVER_BASE_PATH value will be ""
